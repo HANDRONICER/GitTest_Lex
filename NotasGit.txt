@@ -1,0 +1,81 @@
+==> EL PROCESO GIT ES EL SIGUIENTE:
+
+GIT, lo que hace es guardar cuando se lo indiquemos una "version" de un archivo de codigo,
+Pudiendo almacenar cuantas versiones queramos, GIT prioriza 2 cosas:
+
+	A) Organización de todos los archivos:
+		Git almacena los archivos según le van llegando, y siempre los clasifica según su fecha de aquisición: CREANDO ASI UN HISTORIAL DE ARCHIVOS.
+	B) Chequeo de la integridad de archivos
+		Git se asegura de que cada nuevo archivo que guarda es el mas actualizado, para ello revisa el interior del nuevo archivo que esta por guardarse y compara este "linea por linea" con el ultimo archivo almacenado actualmente en su interior.
+		COMPARANDO ASI "CADA CAMBIO REALIZADO ENFOCANDOSE EN LINEAS INDIVIDUALES" y "CREANDO un historial de cambios realizados propio de cada archivo en particular".
+
+Dicho de otra forma:
+Crea 2 historiales_: 
+	_uno enfocado a catalogar archivos sin adentrarse en su contenido 
+	_y otro que es excl1usivo de cada archivo individual enfocado a catalogar cambios en las lineas internas de cada archivo en particular 
+		
+Para lograr ambas cosas GIT presenta las siguientes ZONAS para codificar: Llendo progresivamente desde el trabajo realizado por un solo individuo/Programador hasta el trabajo Unificado de multiples individuos == La empresa/comunidad.
+
+	1) WORK_ZONE: ZonaDeTrabajoLocal del programador ==> Donde se origina todo archivo de codigo gracias al programador individual
+	2) SOFT_ZONE: RepositorioLocalTemporal ==> Esta seccion de nuestro RepositorioLocal es Donde todos los archivos con cambios individuales se empaquetan en un solo conjunto/paqueteDeCodigo antes de ser revisados.
+	3) HARD_ZONE: RepositorioLocalEstatico ==> Esta seccion de nuestro RepositorioLocal es Donde se almacena todo el codigo necesario para el programador de forma local == A) PODEMOS ALMACENAR TODO EL PROYECTO ENTERO AQUÍ DE MANERA LOCAL ó B) PODEMOS ALMACENAR SOLO UNA PARTE DEL PROYECTO AQUÍ DE MANERA LOCAL, 
+	En la HARD_ZONE tambien es Donde se REVISA todo el paquete de codigo (sin separar los archivos): creando el historial de cambios de cada archivo individual y comprobando la integridad y compartibidad de cada archivo.
+	4) SERVER_ZONE: RepositorioCloudProgramador ==> Esta seccion de nuestro RepositorioOnline/Cloud Se utiliza para almacenar las partes del proyecto que corresponden al programador
+	5) BRANCH_ZONE: RepositorioCloudGrupalDeDesarrollo ==>  Esta seccion o Secciones de nuestro RepositorioOnline permiten dividir el proyecto en secciones, cada una de las cuales puede estar enfocada a algun proposito o departamento de la comunidad: Ejemplo_RamaDeDesarrolloExperimental,RamaBeta/RamaDePrueba, RamaMantenimiento/RamaDeCorreccionDeErroresBUGS, etc,etc.
+	6) MAIN/MASTER_ZONE: RepositorioCloudGrupalDeProduccion ==> Version Final Pulida del programa abierta al publico aunque tambien puede ser la Version Final del programa privado de la empresa/comunidad
+	
+
+El flujo de trabajo es el siguiente:
+
+	1) TRABAJAMOS SOBRE EL PROYECTO DE MANERA LOCAL: En el Espacio de Trabajo: WORKZONE
+	
+	2) AÑADIMOS CADA CAMBIO QUE CONSIDEREMOS CORRECTO a la "SOFTZONE: STAGE/RepositorioLocalTemporal"
+	
+	Es decir: actualizamos nuestra "SoftZone:RepositorioLocalTemporal/STAGE" con los archivos que finalizaron su proceso en la workzone:
+	Usamos para ello el comando: // "git add" 
+	
+	Nota: (La "SOFTZONE" u "repositorio local zona/seccion: temporal" tambien se conoce con otro nombre: zona: "STAGE", 
+	
+	La SOFTZONE tiene como proposito almacenar de manera local: Exclusivamente los archivos que NOSOTROS PERSONALMENTE HAYAMOS CAMBIADO que provengan desde dentro de la WORKZONE y creamos que estan listos para comenzar su proceso de revision.
+	
+	.'..' para que asi luego podamos subir de golpe TODOS los cambios al REPOSITORIO LOCAL ESTATICO == HARDZONE) nota: si eliminamos un archivo dentro de la etapa de "trabajo local", tambien debemos colocar el archivo a eliminar STAGE, ESTO PARA MANTENER EL REGISTRO DEL TRABAJO QUE ESTAMOS REALIZANDO.
+	
+	3) AÑADIMOS DE GOLPE TODOS LOS CAMBIOS A nuestra "HARDZONE:RepositorioLocalEstatico"
+	
+	Es decir: actualizamos nuestra "Hardzone:RepositorioLocalEstatico" con los archivos que finalizaron su proceso en la SOFTZONE:
+	Usamos para ello el comando: //"git commit"
+	
+	NOTA: cuando demos por terminado el dia o vayamos a desayunar y no vayamos a estar frente a la computadora por un tiempo largo: siempre es prudente enviar todo lo que actualmente se encuentre en la SOFTZONE, a la HARDZONE de git.
+	
+	La HARDZONE tiene como proposito revisar activamente de forma local y de golpe el conjunto de archivos que creemos que estan listos los cuales son provenientes y se encuentran en la SoftZone, para realizar en este momento su integracion con el proyecto/laParteDelProyecto que estemos trabajando LOCALMENTE.
+	
+	.'..' Para "git commit" (este comando limpia la softzone e integra los archivos con cambios a nuestro repositorio local INTEGRANDOLOS Y MEZCLANDO ESTOS CON el EXTENSO PROYECTOTE )
+	
+	4) AÑADIMOS DE GOLPE TODOS LOS CAMBIOS A nuestra: "ServerZone:RepositorioCloudProgramador"
+
+	Es decir: actualizamos nuestra "ServerZone:RepositorioCloudProgramador" con todo el contenido que finalizo su proceso en la HARDZONE.
+	Usamos para ello el comando: // "git push"
+	
+	La "ServerZone:RepositorioCloudProgramador" tiene como proposito almacenar en CLOUD/INTERNET: Solo los archivos que hayan recibido cambios dentro de nuestra HARDZONE.
+	
+	Es en esta ZONA DONDE SE HACE LA TRANSICION DE "GIT" hacia "GITHUB"
+	
+	La SERVERZONE tiene como proposito almacenar solo los cambios realizados por un programador en especifico, por lo que puede denominarse ZonaPersonalDelProgramador siempre que se tenga en cuenta que esa zona solo debe usarse exclusivamente para ese proyecto y nada mas.
+	
+	5) Integramos LOS CAMBIOS desde nuestra  "ServerZone:RepositorioCloudProgramador" hacia nuestra "BranchZone:RepositorioCloudDesarrollo" .
+		
+	Es decir: actualizamos nuestra "BranchZone:RepositorioCloudDesarrollo" integrando a esta todo el contenido que finalizo su proceso en la SERVERZONE.
+	Usamos para ello el comando: "git merge"
+	
+	La "BranchZone:RepositorioCloudDesarrollo", tiene como proposito conjuntar todos los trabajos de la comunidad de programadores en un area donde aun se puede mejorar codigo, siendo que esta zona "desarrollo" puede estar incluso mas actualizada que la zona: "main/master", sin embargo es importante tener en cuenta que main: siempre intentara ofrecer la mejor estabilidad u la menor cantidad de errores posibles en el programa y desarrollo: siempre intentara ofrecer las mas nuevas funcionalidades.
+	
+	6) El mismo proceso "5)" Sirve de igual manera para cuando queramos realizar: Integramos LOS CAMBIOS desde nuestra  "BranchZone:RepositorioCloudDesarrollo" hacia nuestra "Main/Master_ZONE"
+
+
+Como nota importantisima: 
+	Podemos descargar archivos desde cualquiera de los 3 repositorios Cloud para agregarlos DIRECTAMENTE y sin mas complicaciones a nuestra area de trabajo.
+	
+	Siempre y cuando primero descarguemos la SeccionDelRepositorioCloud/RepositorioEnteroCloud que contenga los archivos que queramos manipular hacia nuestro RepositorioLocal para asi luego agregarlos a nuestra area de trabajo.
+	
+	Para ello: nos localizamos en la ruta de nuestro repositorio local que coincide con el repositorio de cloud y ejecutamos el comando:
+	//git pull (detallando siempre la zona del repositorioCloud a la cual se desea acceder: "SERVER/BRANCH/MAIN-MASTER")
